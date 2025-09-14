@@ -1,69 +1,210 @@
-# React + TypeScript + Vite
+# 🚀 User Dashboard — Lightweight Admin Template  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive **React + TypeScript** dashboard with reusable UI components, data fetching, form handling, and real-time notifications.  
+Built with **TailwindCSS** and **React Router** — perfect as a foundation for larger admin platforms.  
 
-Currently, two official plugins are available:
+> **API Used:** [JSONPlaceholder](https://jsonplaceholder.typicode.com/) — A free fake REST API for testing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ✅ Responsive Layout  
+- Fixed sidebar (collapses on mobile)  
+- Main content area with dynamic routing  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ✅ Reusable UI Components  
+- **Button** (Primary / Secondary)  
+- **Modal** (Popup with header, body, footer)  
+- **AdvancedTable** (Searchable, Paginated, with Skeleton Loading)  
+- **Toast** (Notifications: Success, Error, Info)  
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### ✅ Data Management  
+- Fetch & display users from JSONPlaceholder API  
+- Search and filter table data  
+- Client-side pagination (configurable rows per page)  
+- Skeleton loading states  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### ✅ Forms & Validation  
+- Full user registration form (Personal, Address, Company)  
+- Real-time validation with error messages  
+- Form reset functionality  
+- Submit with loading state & success toast  
+
+### ✅ User Detail Page  
+- View full user profile by ID (`/user/:id`)  
+- Clean card-based layout with icons  
+- Responsive design for all devices  
+
+### ✅ Error Handling & UX  
+- Global error boundaries  
+- Toast notifications for API success/failure  
+- Loading states for async operations  
+- No infinite re-renders — fixed and tested  
+
+---
+
+## 🛠️ Tech Stack  
+- **Framework:** React 18 + TypeScript  
+- **Routing:** React Router DOM v6  
+- **Styling:** Tailwind CSS (Utility-First)  
+- **State Management:** React Hooks (useState, useEffect, useContext)  
+- **Notifications:** Custom Toast System with Context  
+- **Icons:** Heroicons (via SVG)  
+- **API:** JSONPlaceholder (Fake REST API)  
+
+---
+
+## 📦 Getting Started  
+
+### Prerequisites  
+- Node.js (v16+)  
+- npm or yarn  
+
+### Installation  
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/user-dashboard.git
+cd user-dashboard
+
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Start the development server
+npm run dev
+# or
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open 👉 [http://localhost:5173](http://localhost:5173) in your browser.  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🗂️ Project Structure  
+
 ```
+src/
+├── components/
+│   ├── Sidebar.tsx
+│   └── ui/
+│       ├── Button.tsx
+│       ├── Modal.tsx
+│       ├── AdvancedTable.tsx
+│       ├── ToastProvider.tsx
+│       └── ...
+├── pages/
+│   ├── Dashboard.tsx
+│   ├── DataTable.tsx   # Paginated, searchable user table
+│   ├── FormPage.tsx    # User creation form with validation
+│   └── UserPage.tsx    # User profile page (/user/:id)
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+## 🧩 Component Usage  
+
+### 1. **Button**
+```tsx
+import Button from "../components/ui/Button";
+
+<Button onClick={handleClick}>Primary</Button>
+<Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+```
+
+### 2. **AdvancedTable**
+```tsx
+import AdvancedTable from "../components/ui/AdvancedTable";
+
+const columns = [
+  { key: "name", header: "Name" },
+  { key: "email", header: "Email" },
+  {
+    key: "role",
+    header: "Role",
+    render: (user) => <span className="...">{user.role}</span>,
+  },
+];
+
+<AdvancedTable
+  data={users}
+  columns={columns}
+  loading={isLoading}
+  searchable
+  paginated
+  rowsPerPage={10}
+  onRowClick={(user) => navigate(`/user/${user.id}`)}
+/>
+```
+
+### 3. **Toast Notifications**
+Wrap your app with `ToastProvider` in **App.tsx**:
+```tsx
+import { ToastProvider } from "./components/ui/ToastProvider";
+
+function App() {
+  return (
+    <ToastProvider>
+      <Router>...</Router>
+    </ToastProvider>
+  );
+}
+```
+
+Use anywhere:
+```tsx
+import { useToast } from "../components/ui/ToastProvider";
+
+const { addToast } = useToast();
+addToast("User created!", "success");
+addToast("Failed to load data", "error");
+```
+---
+
+## 🧭 Routes  
+
+| Path         | Page        | Description                          |
+|--------------|------------|--------------------------------------|
+| `/`          | Dashboard  | Welcome page                         |
+| `/data-table`| DataTable  | User table with search & pagination  |
+| `/form`      | FormPage   | User creation form                   |
+| `/user/:id`  | UserPage   | Detailed user profile                |
+
+---
+
+## 🧪 Example API Data (User)  
+
+```json
+{
+  "id": 1,
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  },
+  "phone": "1-770-736-8031 x56442",
+  "website": "hildegard.org",
+  "company": {
+    "name": "Romaguera-Crona",
+    "catchPhrase": "Multi-layered client-server neural-net",
+    "bs": "harness real-time e-markets"
+  }
+}
+```
+
+---
+
+## 📄 License  
+This project is open-source and available under the **MIT License**.  
