@@ -12,7 +12,7 @@ import ContextProvider from "./context/ContextProvider";
 function App() {
   return (
     <ToastProvider>
-      <Router>
+      <Router basename="Mini-Dashboard-System">
         <div className="flex  h-screen bg-gray-100">
           <ContextProvider>
             <Sidebar />
