@@ -2,7 +2,6 @@ import { useState } from "react";
 import Button from "../components/ui/Button";
 import { useToast } from "../Hooks/useToast";
 
-
 type Address = {
   street: string;
   suite: string;
@@ -79,11 +78,9 @@ export default function FormPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // التحقق من الصحة
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
 
-    // التحقق من الحقول الأساسية
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     } else if (formData.name.trim().length < 2) {
@@ -106,7 +103,6 @@ export default function FormPage() {
       newErrors.website = "Website must start with http:// or https://";
     }
 
-    // التحقق من العنوان
     if (!formData.address.street.trim()) {
       newErrors.address = {
         ...newErrors.address,
@@ -145,7 +141,6 @@ export default function FormPage() {
       };
     }
 
-    // التحقق من الشركة
     if (!formData.company.name.trim()) {
       newErrors.company = {
         ...newErrors.company,
@@ -166,7 +161,6 @@ export default function FormPage() {
     return Object.keys(newErrors).length === 0 && !hasNestedErrors(newErrors);
   };
 
-  // دالة مساعدة للتحقق من الأخطاء المتداخلة
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hasNestedErrors = (obj: any): boolean => {
     return Object.values(obj).some((val) =>
@@ -174,7 +168,6 @@ export default function FormPage() {
     );
   };
 
-  // معالجة التغييرات في الحقول العادية
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -183,7 +176,6 @@ export default function FormPage() {
       [name]: value,
     }));
 
-    // مسح الخطأ عند الكتابة
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
@@ -192,7 +184,6 @@ export default function FormPage() {
     }
   };
 
-  // معالجة التغييرات في حقول العنوان
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -204,7 +195,6 @@ export default function FormPage() {
       },
     }));
 
-    // مسح الخطأ عند الكتابة
     if (errors.address?.[name as keyof Address]) {
       setErrors((prev) => ({
         ...prev,
@@ -216,7 +206,6 @@ export default function FormPage() {
     }
   };
 
-  // معالجة التغييرات في حقول geo
   const handleGeoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -231,7 +220,6 @@ export default function FormPage() {
       },
     }));
 
-    // مسح الخطأ عند الكتابة
     if (errors.address?.geo?.[name as "lat" | "lng"]) {
       setErrors((prev) => ({
         ...prev,
@@ -246,7 +234,6 @@ export default function FormPage() {
     }
   };
 
-  // معالجة التغييرات في حقول الشركة
   const handleCompanyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -258,7 +245,6 @@ export default function FormPage() {
       },
     }));
 
-    // مسح الخطأ عند الكتابة
     if (errors.company?.[name as keyof Company]) {
       setErrors((prev) => ({
         ...prev,
@@ -270,7 +256,6 @@ export default function FormPage() {
     }
   };
 
-  // إرسال النموذج
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -294,7 +279,6 @@ export default function FormPage() {
 
       addToast("User created successfully!", "success");
 
-      // إعادة تعيين النموذج
       setFormData({
         name: "",
         email: "",
@@ -330,7 +314,7 @@ export default function FormPage() {
         Create User{" "}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* القسم 1: المعلومات الأساسية */}
+        {/*  1:   */}
         <div className="bg-gray-50 p-4 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
           <div>
@@ -437,7 +421,7 @@ export default function FormPage() {
           </div>
         </div>
 
-        {/* القسم 2: العنوان */}
+        {/*  2: */}
         <div className="bg-gray-50 p-4 rounded-lg">
           <h3 className="text-lg font-semibold mb-4">Address</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -602,7 +586,7 @@ export default function FormPage() {
           </div>
         </div>
 
-        {/* القسم 3: الشركة */}
+        {/*  3: */}
         <div className="bg-gray-50 p-4 rounded-lg">
           <h3 className="text-lg font-semibold mb-4">Company</h3>
           <div className="grid grid-cols-1 gap-6">
@@ -690,7 +674,7 @@ export default function FormPage() {
           </div>
         </div>
 
-        {/* أزرار الإرسال والإعادة */}
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">
           <Button type="submit" disabled={isLoading} className="flex-1">
             {isLoading ? (

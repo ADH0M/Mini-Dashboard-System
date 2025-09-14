@@ -1,4 +1,3 @@
-// src/App.tsx
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
@@ -8,6 +7,7 @@ import FormPage from "./pages/FormPage";
 import { ToastProvider } from "./components/ui/ToastProvider";
 import UserPage from "./pages/User";
 import ContextProvider from "./context/ContextProvider";
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
                 <Route path="/users" element={<DataTable />} />
                 <Route path="/create-user" element={<FormPage />} />
                 <Route path="/user/:id" element={<UserPage />} />
+                <Route path="*" element={<Unauthorized />} />
               </Routes>
             </div>
           </ContextProvider>

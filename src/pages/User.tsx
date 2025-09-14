@@ -1,4 +1,3 @@
-// src/pages/UserPage.tsx
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -128,7 +127,7 @@ export default function UserPage() {
       <div className="mb-8">
         <Button
           variant="secondary"
-          onClick={() => navigate("/data-table")}
+          onClick={() => navigate("/users")}
           className="px-6 py-3 bg-indigo-400 text-indigo-50 cursor-pointer"
         >
           ← Back to Form

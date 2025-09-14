@@ -40,7 +40,7 @@ export default function RegisterForm() {
     // simulate API
     await new Promise((res) => setTimeout(res, 1000));
 
-    // Optionally store rememberMe choice
+   
     if (rememberMe) {
       localStorage.setItem(
         "rememberedUser",
@@ -84,7 +84,7 @@ export default function RegisterForm() {
             <p className="text-gray-600">
               You are successfully registered and logged in.
             </p>
-            {/* Add more content here if needed */}
+           
           </section>
         </main>
       ) : (

@@ -6,7 +6,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [auth, setAuth] = useAuth(); // ← تأكد إن useAuth يعيد [auth, setAuth]
+  const [auth, setAuth] = useAuth(); 
 
   const navItems = [
     { name: "Home", path: "/" },
