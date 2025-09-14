@@ -4,6 +4,7 @@ A responsive **React + TypeScript** dashboard with reusable UI components, data 
 Built with **TailwindCSS** and **React Router** — perfect as a foundation for larger admin platforms.  
 
 > **API Used:** [JSONPlaceholder](https://jsonplaceholder.typicode.com/) — A free fake REST API for testing.
+> Demo Live (https://adh0m.github.io/Mini-Dashboard-System/) 
 
 ---
 
@@ -208,3 +209,4 @@ addToast("Failed to load data", "error");
 
 ## 📄 License  
 This project is open-source and available under the **MIT License**.  
+> demo https://adh0m.github.io/Mini-Dashboard-System
